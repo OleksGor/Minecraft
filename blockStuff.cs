@@ -10,9 +10,7 @@ public class blockStuff : MonoBehaviour
     public float moved;
     public bool  moving;
     public bool breaking;
-    public GameObject grass;
     public GameObject player;
-    public GameObject sand;
     void Start()
     {
         
@@ -62,7 +60,7 @@ public class blockStuff : MonoBehaviour
                 {
                     moved -= 1.0f;
                     rayBlock.transform.localPosition = new Vector3(0, 0, moved);
-                    GameObject block5 = Instantiate(grass);
+                    GameObject block5 = Instantiate(blocks.block["Stone"]);
                     block5.transform.position = new Vector3(Mathf.Round(rayBlock.transform.position.x), Mathf.Round(rayBlock.transform.position.y), Mathf.Round(rayBlock.transform.position.z));
                 }
             }

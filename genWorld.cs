@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class genWorld : MonoBehaviour
 {
-    public GameObject grass;
-    public GameObject dirt;
-    public GameObject rock;
-    public GameObject water;
-    public GameObject tree;
-    public GameObject grass_tile;
-    public GameObject flower;
-    public GameObject sand;
-    public GameObject cactus;
     public GameObject player;
     public float seed;
     public float cy;
@@ -20,7 +11,6 @@ public class genWorld : MonoBehaviour
     public float positionz;
     public float positionx;
     public int mapsize;
-    public float smoothness;
     public int biomeSize;
 
     private void genMap(float i, float j)
@@ -30,7 +20,7 @@ public class genWorld : MonoBehaviour
             //desert
             for (int y = 0; y < 20; y++)
             {
-                cy = Mathf.Round(Mathf.PerlinNoise(i / smoothness + seed, j / smoothness + seed) * 10) - y;
+                cy = Mathf.Round(Mathf.PerlinNoise(i / 20 + seed, j / 20 + seed) * 10) - y;
                 if (y == 0)
                 {
 
@@ -39,35 +29,35 @@ public class genWorld : MonoBehaviour
                         
                         for (int w = 0; w < waterLevel + 1 - cy; w++)
                         {
-                            GameObject block2 = Instantiate(water);
+                            GameObject block2 = Instantiate(blocks.block["Water"]);
                             block2.transform.position = new Vector3(i, cy + w + 1, j);
                         }
 
-                        GameObject block = Instantiate(sand);
+                        GameObject block = Instantiate(blocks.block["Sand"]);
                         block.transform.position = new Vector3(i, cy, j);
                     }
                     else
                     {
                         if (Mathf.PerlinNoise(i / 2 + seed, j / 2 + seed) <= 0.1)
                         {
-                            GameObject block4 = Instantiate(cactus);
+                            GameObject block4 = Instantiate(blocks.block["Cactus"]);
                             block4.transform.position = new Vector3(i, cy + 1, j);
                         }
-                        GameObject block = Instantiate(sand);
+                        GameObject block = Instantiate(blocks.block["Sand"]);
                         block.transform.position = new Vector3(i, cy, j);
                     }
 
                 }
                 else if (y < 5)
                 {
-                    GameObject block = Instantiate(sand);
+                    GameObject block = Instantiate(blocks.block["Sand"]);
                     block.transform.position = new Vector3(i, cy, j);
                 }
                 else
                 {
                     if (cy > -6)
                     {
-                        GameObject block3 = Instantiate(rock);
+                        GameObject block3 = Instantiate(blocks.block["Stone"]);
                         block3.transform.position = new Vector3(i, cy, j);
                     }
                 }
@@ -78,7 +68,7 @@ public class genWorld : MonoBehaviour
             //plains forest
             for (int y = 0; y < 20; y++)
             {
-                cy = Mathf.Round(Mathf.PerlinNoise(i / smoothness + seed, j / smoothness + seed) * 10) - y;
+                cy = Mathf.Round(Mathf.PerlinNoise(i / 20 + seed, j / 20 + seed) * 10) - y;
                 if (y == 0)
                 {
                     if (cy <= waterLevel + 1)
@@ -86,31 +76,31 @@ public class genWorld : MonoBehaviour
 
                         for (int w = 0; w < waterLevel + 1 - cy; w++)
                         {
-                            GameObject block2 = Instantiate(water);
+                            GameObject block2 = Instantiate(blocks.block["Water"]);
                             block2.transform.position = new Vector3(i, cy + w + 1, j);
                         }
 
-                        GameObject block = Instantiate(sand);
+                        GameObject block = Instantiate(blocks.block["Sand"]);
                         block.transform.position = new Vector3(i, cy, j);
                     }
                     else
                     {
                         if (Mathf.PerlinNoise(i/2 + seed, j/2 + seed) <= 0.1)
                         {
-                            GameObject block4 = Instantiate(tree);
+                            GameObject block4 = Instantiate(blocks.block["Tree"]);
                             block4.transform.position = new Vector3(i, cy + 2, j);
                         }
                         else if (Mathf.PerlinNoise(i/2 + seed+1, j/2  + seed+1) <= 0.2)
                         {
-                            GameObject block5 = Instantiate(grass_tile);
+                            GameObject block5 = Instantiate(blocks.block["Grass_Tile"]);
                             block5.transform.position = new Vector3(i, cy + 1, j);
                         }
                         else if (Mathf.PerlinNoise(i/2 + seed+2, j/2 + seed+2) <= 0.2)
                         {
-                            GameObject block5 = Instantiate(flower);
+                            GameObject block5 = Instantiate(blocks.block["Flower"]);
                             block5.transform.position = new Vector3(i, cy + 0.7f, j);
                         }
-                        GameObject block = Instantiate(grass);
+                        GameObject block = Instantiate(blocks.block["Grass"]);
                         block.transform.position = new Vector3(i, cy, j);
                     }
 
@@ -119,13 +109,13 @@ public class genWorld : MonoBehaviour
                 {
                     if (cy + y <= waterLevel + 1)
                     {
-                        GameObject block = Instantiate(sand);
+                        GameObject block = Instantiate(blocks.block["Sand"]);
                         block.transform.position = new Vector3(i, cy, j);
                     }
                     else
                     {
 
-                        GameObject block2 = Instantiate(dirt);
+                        GameObject block2 = Instantiate(blocks.block["Dirt"]);
                         block2.transform.position = new Vector3(i, cy, j);
                     }
 
@@ -135,7 +125,7 @@ public class genWorld : MonoBehaviour
                 {
                     if (cy > -6)
                     {
-                        GameObject block3 = Instantiate(rock);
+                        GameObject block3 = Instantiate(blocks.block["Stone"]);
                         block3.transform.position = new Vector3(i, cy, j);
                     }
                 }
@@ -146,7 +136,7 @@ public class genWorld : MonoBehaviour
             //mountains
             for (int y = 0; y < 20; y++)
             {
-                cy = Mathf.Round(Mathf.PerlinNoise(i / (smoothness/1.5f) + seed, j / (smoothness/1.5f) + seed) * 40) - y;
+                cy = Mathf.Round(Mathf.PerlinNoise(i / 20 + seed, j / 20 + seed) * 40) - y;
                 if (y == 0)
                 {
                     if (cy <= waterLevel + 1)
@@ -154,16 +144,16 @@ public class genWorld : MonoBehaviour
 
                         for (int w = 0; w < waterLevel + 1 - cy; w++)
                         {
-                            GameObject block2 = Instantiate(water);
+                            GameObject block2 = Instantiate(blocks.block["Water"]);
                             block2.transform.position = new Vector3(i, cy + w + 1, j);
                         }
 
-                        GameObject block = Instantiate(sand);
+                        GameObject block = Instantiate(blocks.block["Sand"]);
                         block.transform.position = new Vector3(i, cy, j);
                     }
                     else
                     {
-                        GameObject block = Instantiate(rock);
+                        GameObject block = Instantiate(blocks.block["Stone"]);
                         block.transform.position = new Vector3(i, cy, j);
                     }
 
@@ -172,13 +162,13 @@ public class genWorld : MonoBehaviour
                 {
                     if (cy + y <= waterLevel + 1)
                     {
-                        GameObject block = Instantiate(sand);
+                        GameObject block = Instantiate(blocks.block["Sand"]);
                         block.transform.position = new Vector3(i, cy, j);
                     }
                     else
                     {
 
-                        GameObject block2 = Instantiate(rock);
+                        GameObject block2 = Instantiate(blocks.block["Stone"]);
                         block2.transform.position = new Vector3(i, cy, j);
                     }
 
@@ -188,7 +178,7 @@ public class genWorld : MonoBehaviour
                 {
                     if (cy > -6)
                     {
-                        GameObject block3 = Instantiate(rock);
+                        GameObject block3 = Instantiate(blocks.block["Stone"]);
                         block3.transform.position = new Vector3(i, cy, j);
                     }
                 }
