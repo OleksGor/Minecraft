@@ -15,7 +15,7 @@ public class genWorld : MonoBehaviour
 
     private void genMap(float i, float j)
     {
-        if (Mathf.PerlinNoise((player.transform.position.x/200) + seed, (player.transform.position.z/200) + seed)<0.3f)
+        if (Mathf.PerlinNoise((player.transform.position.x/200) + seed, (player.transform.position.z/200) + seed)<=0.2f)
         {
             //desert
             for (int y = 0; y < 20; y++)
@@ -63,7 +63,7 @@ public class genWorld : MonoBehaviour
                 }
             }
         }
-        else  if(Mathf.PerlinNoise((player.transform.position.x / 200) + seed, (player.transform.position.z / 200) + seed) > 0.6f)
+        else  if(Mathf.PerlinNoise((player.transform.position.x / 200) + seed, (player.transform.position.z / 200) + seed) > 0.2f)
         {
             //plains forest
             for (int y = 0; y < 20; y++)
