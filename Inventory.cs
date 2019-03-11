@@ -15,7 +15,6 @@ public class Inventory : MonoBehaviour
         for (var i = 0; i < slot.Length; i++)
         {
             slot[i] = slotHolder.transform.GetChild(i).gameObject;
-            Debug.Log(slot[i]);
         }
     }
     void Update()

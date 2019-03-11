@@ -11,6 +11,7 @@ public class blockstuff : MonoBehaviour
     public bool moving;
     public bool breaking;
     public GameObject player;
+    public string placeBlock;
     void Start()
     {
 
@@ -49,11 +50,12 @@ public class blockstuff : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.name != "FPSController")
+        if (col.gameObject.name != "FPSController" && !col.gameObject.name.Contains("Bedrock") && !col.gameObject.name.Contains("Water"))
         {
             if (breaking)
             {
-                col.GetComponent<Item>().broken = true;
+                //col.GetComponent<Item>().broken = true;
+                Destroy(col.gameObject);
             }
             else
             {
@@ -61,7 +63,7 @@ public class blockstuff : MonoBehaviour
                 {
                     moved -= 1.0f;
                     rayBlock.transform.localPosition = new Vector3(0, 0, moved);
-                    GameObject block5 = Instantiate(blocks.block["Stone"]);
+                    GameObject block5 = Instantiate(blocks.block[placeBlock]);
                     block5.transform.position = new Vector3(Mathf.Round(rayBlock.transform.position.x), Mathf.Round(rayBlock.transform.position.y), Mathf.Round(rayBlock.transform.position.z));
                 }
             }
@@ -70,6 +72,4 @@ public class blockstuff : MonoBehaviour
             moved = 0;
         }
     }
-
-
 }

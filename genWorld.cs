@@ -12,10 +12,11 @@ public class genWorld : MonoBehaviour
     public float positionx;
     public int mapsize;
     public int biomeSize;
+    private bool fCLoaded;
 
     private void genMap(float i, float j)
     {
-        if (Mathf.PerlinNoise((player.transform.position.x/200) + seed, (player.transform.position.z/200) + seed)<=0.2f)
+        if (Mathf.PerlinNoise((positionx / 200) + seed, (positionz / 200) + seed)<=0.2f)
         {
             //desert
             for (int y = 0; y < 20; y++)
@@ -60,6 +61,11 @@ public class genWorld : MonoBehaviour
                         GameObject block3 = Instantiate(blocks.block["Stone"]);
                         block3.transform.position = new Vector3(i, cy, j);
                     }
+                    else if (cy == -6)
+                    {
+                        GameObject block3 = Instantiate(blocks.block["Bedrock"]);
+                        block3.transform.position = new Vector3(i, cy, j);
+                    }
                 }
             }
         }
@@ -88,7 +94,7 @@ public class genWorld : MonoBehaviour
                         if (Mathf.PerlinNoise(i/2 + seed, j/2 + seed) <= 0.1)
                         {
                             GameObject block4 = Instantiate(blocks.block["Tree"]);
-                            block4.transform.position = new Vector3(i, cy + 2, j);
+                            block4.transform.position = new Vector3(i, cy + 1, j);
                         }
                         else if (Mathf.PerlinNoise(i/2 + seed+1, j/2  + seed+1) <= 0.2)
                         {
@@ -126,6 +132,11 @@ public class genWorld : MonoBehaviour
                     if (cy > -6)
                     {
                         GameObject block3 = Instantiate(blocks.block["Stone"]);
+                        block3.transform.position = new Vector3(i, cy, j);
+                    }
+                    else if (cy == -6)
+                    {
+                        GameObject block3 = Instantiate(blocks.block["Bedrock"]);
                         block3.transform.position = new Vector3(i, cy, j);
                     }
                 }
@@ -180,6 +191,10 @@ public class genWorld : MonoBehaviour
                     {
                         GameObject block3 = Instantiate(blocks.block["Stone"]);
                         block3.transform.position = new Vector3(i, cy, j);
+                    }else if (cy == -6)
+                    {
+                        GameObject block3 = Instantiate(blocks.block["Bedrock"]);
+                        block3.transform.position = new Vector3(i, cy, j);
                     }
                 }
             }
@@ -191,16 +206,21 @@ public class genWorld : MonoBehaviour
         positionz = Mathf.Round(player.transform.position.z);
         positionx = Mathf.Round(player.transform.position.x);
         seed = Random.Range(0.0f, 10000.0f);
-        for (int i = 0; i < mapsize; i++)
-        {
-            for (int j = 0; j < mapsize; j++)
-            {
-                genMap(i, j);
-            }
-        }
     }
     private void Update()
     {
+        if (!fCLoaded)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < mapsize; j++)
+                {
+                    genMap(i, j);
+
+                }
+            }
+            fCLoaded = true;
+        }
         if ((player.transform.position.x  - positionx) >= 1)
         {
             positionx = Mathf.Round(player.transform.position.x);

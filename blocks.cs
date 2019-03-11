@@ -13,6 +13,5 @@ public class blocks : MonoBehaviour
         {
             block.Add(BLOCKS[i].name, BLOCKS[i]);
         }
-        Debug.Log(block);
     }
 }
